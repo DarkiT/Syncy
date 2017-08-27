@@ -21,6 +21,8 @@ SyncY官方网址：http://www.syncy.cn
 
 显示以上日志内容即为已经成功获取了您百度网盘的授权信息，程序已经可以正常工作。
 
+程序具体配置说明请参考 http://www.syncy.cn/index.php/syncyconfighelp/
+
 ## 运行Syncy
 
 执行以下命令运行Syncy
@@ -44,10 +46,10 @@ SyncY官方网址：http://www.syncy.cn
 第一次研究Python 第一次使用Docker，程序不排除有bug，欢迎提交，尽力修复
 
 1. 改为用 `Dockerfile` 构建镜像
-2. 使用 `deploy.sh` 来创建容器内的目录，下载程序文件并配置等
-3. 修改配置文件路径为 `/config/syncy`
-4. 修改默认下载路径为 `/downloads/`
-5. 挂载目录改为 `/downloads/`
+2. 修改配置文件路径为 `/config/syncy`
+3. 修改默认下载路径为 `/downloads/`
+4. 挂载配置目录为 `/config/`
+4. 挂载下载目录改为 `/downloads/`
 ******
 # 参考
 
