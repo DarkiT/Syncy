@@ -227,12 +227,12 @@ class SyncY:
         if 'refresh_token' not in SyncY.syncytoken or SyncY.syncytoken['refresh_token'] == '' or (len(self.__argv) != 0 and self.__argv[0] in ['sybind', 'cpbind']):
             sycurl = SYCurl()
             if (('access_token' not in SyncY.syncytoken or SyncY.syncytoken['access_token'] == '') and len(self.__argv) == 0) or (len(self.__argv) != 0 and self.__argv[0] == 'sybind'):
-                retcode, responses = sycurl.request('https://pan.api.shekd.com/baidu', {}, {'method': 'bind_token', 'device': SyncY.config['token']}, 'POST', SYCurl.Normal)
+                retcode, responses = sycurl.request('https://pan.shekd.com/baidu/api', {}, {'method': 'bind_token', 'device': SyncY.config['token']}, 'POST', SYCurl.Normal)
                 responses = json.loads(responses)
                 if retcode != 200 or 'error_code' in responses:
                     print(' ')
                     print('Device binding Guide:')
-                    print('     1. Open web browser to visit:"https://pan.api.shekd.com/baidu/login" Register access_token to binding your baidu account.')
+                    print('     1. Open web browser to visit:"https://pan.shekd.com/baidu/login" Register access_token to binding your baidu account.')
                     print('     2. Set the configuration file token value')
                     print(' ')
                     sys.exit(0)
@@ -381,18 +381,18 @@ class SyncY:
         retcode, responses = sycurl.request('https://openapi.baidu.com/rest/2.0/passport/users/getLoggedInUser', {}, {'access_token': SyncY.syncytoken['access_token']}, 'POST', SYCurl.Normal)
         responses = json.loads(responses)
         if 'uid' in responses:
-            retcode, responses = sycurl.request('https://pan.api.shekd.com/baidu', {}, {'method': 'get_last_version', 'edition': 'python', 'ver': __VERSION__, 'uid': responses['uid'], 'code': SyncY.config['token']}, 'POST', SYCurl.Normal)
+            retcode, responses = sycurl.request('https://pan.shekd.com/baidu/api', {}, {'method': 'get_last_version', 'edition': 'python', 'ver': __VERSION__, 'uid': responses['uid'], 'code': SyncY.config['token']}, 'POST', SYCurl.Normal)
             if retcode == 200 and responses.find('#') > -1:
                 (lastver, smessage) = responses.strip('\n').split('#', 1)
                 if lastver > __VERSION__:
                     printlog('%s WARNING: %s' % (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), smessage.encode(__CHARSET__)))
         if (int(time.time()) - SyncY.syncytoken['refresh_date'] > 2581200):
-            retcode, responses = sycurl.request('https://pan.api.shekd.com/baidu', {}, {'method': 'send_wxsms', 'edition': 'python', 'ver': __VERSION__, 'uid': responses['uid'], 'code': SyncY.config['token']}, 'POST', SYCurl.Normal)
+            retcode, responses = sycurl.request('https://pan.shekd.com/baidu/api', {}, {'method': 'send_wxsms', 'edition': 'python', 'ver': __VERSION__, 'uid': responses['uid'], 'code': SyncY.config['token']}, 'POST', SYCurl.Normal)
             responses = json.loads(responses)
             printlog('%s STATUS: %s: Sens wechat sms: %s.' % (time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), responses['errcode'], responses['errmsg']))
         if (SyncY.syncytoken['refresh_date'] + SyncY.syncytoken['expires_in'] - 864000) > int(time.time()):
             return
-        retcode, retbody = sycurl.request('https://pan.api.shekd.com/baidu', {}, {'method': 'refresh_access_token', 'refresh_token': SyncY.syncytoken['refresh_token'], 'code': SyncY.config['token']}, 'POST', SYCurl.Normal)
+        retcode, retbody = sycurl.request('https://pan.shekd.com/baidu/api', {}, {'method': 'refresh_access_token', 'refresh_token': SyncY.syncytoken['refresh_token'], 'code': SyncY.config['token']}, 'POST', SYCurl.Normal)
         responses = json.loads(retbody)
         try:
             if retcode != 200:

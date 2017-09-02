@@ -13,7 +13,7 @@ SyncY官方网址：http://www.syncy.cn
 
 浏览器中打开
 
-    https://pan.api.shekd.com/baidu/login
+    https://pan.shekd.com/baidu/login
 
 使用微信扫描浏览器显示的二维码后进行相关授权操作，获得授权token后，将所获得的token填入配置文件syncy 第三行token处，再次启动容器程序将自动拉取您的授权信息（默认授权信息有效期为30天，在到期前3天内微信将会发送消息提醒你进行续期操作，直接点击微信消息按首次方法即可进行授权续期）。
 
